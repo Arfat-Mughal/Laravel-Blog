@@ -90,7 +90,7 @@ class Post extends Model implements Searchable, Feedable
         return $query;
     }
 
-    public function toFeedItem(): FeedItem
+        public function toFeedItem(): FeedItem
     {
         $content = $this->content->first();
         if (!$content) {
@@ -116,7 +116,7 @@ class Post extends Model implements Searchable, Feedable
 
         return $feedItem;
     }
-
+    
     public static function getFeedItems()
     {
         return static::with(['author', 'content'])->has('content')->visible()->orderBy('id', 'desc')->get();
