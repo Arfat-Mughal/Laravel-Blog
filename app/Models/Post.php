@@ -90,28 +90,31 @@ class Post extends Model implements Searchable, Feedable
         return $query;
     }
 
-    public function toFeedItem()
+    public function toFeedItem(): FeedItem
     {
         $content = $this->content->first();
-        $feed = FeedItem::create()
+        if (!$content) {
+            return null; // or throw exception depending on your needs
+        }
+
+        $feedItem = new FeedItem();
+        $feedItem
             ->id($this->id)
             ->title($content->title)
-            ->summary($content->description)
+            ->description($content->description) // Changed from summary()
             ->updated($content->updated_at)
             ->link(route('posts.show', [app()->getLocale(), $content->url]))
-            ->author($this->author->full_name);
+            ->authorName($this->author->full_name); // Changed from author()
 
         $categories = $this->categories()->has('content')->get();
-        $params = [];
-        foreach($categories as $category){
-            $content = $category->content->first();
-            if (!empty($content)){
-                $params[] = $content->title;
+        foreach ($categories as $category) {
+            $catContent = $category->content->first();
+            if ($catContent) {
+                $feedItem->category($catContent->title);
             }
         }
-        if (count($params) > 0)
-            $feed->category(...$params);
-        return $feed;
+
+        return $feedItem;
     }
 
     public static function getFeedItems()

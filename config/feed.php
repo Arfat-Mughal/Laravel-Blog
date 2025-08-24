@@ -3,19 +3,8 @@
 return [
     'feeds' => [
         'main' => [
-            /*
-             * Here you can specify which class and method will return
-             * the items that should appear in the feed. For example:
-             * 'App\Model@getAllFeedItems'
-             *
-             * You can also pass an argument to that method:
-             * ['App\Model@getAllFeedItems', 'argument']
-             */
             'items' => 'App\Models\Post@getFeedItems',
 
-            /*
-             * The feed will be available on this url.
-             */
             'url' => '/feeds',
 
             'title' => 'Laravel-Blog',
@@ -31,6 +20,11 @@ return [
              * The type to be used in the <link> tag
              */
             'type' => 'application/atom+xml',
+
+            /*
+             * 👇 REQUIRED in v3/v4
+             */
+            'format' => 'atom', // could be 'atom', 'rss', or 'json'
         ],
     ],
 ];
