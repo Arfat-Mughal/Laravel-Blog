@@ -24,6 +24,13 @@ return [
 
     'available_locales' => [
         'en',
-        'pl'
+        'pl',
+        'es',     
+        'fr',     
+        'ar',     
+        'zh',     
+        'hi',     
+        'ru',     
+        'pt',     
     ],
 ];
