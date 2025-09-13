@@ -4,46 +4,40 @@
 
 @section('content')
 @if (!auth()->user()->two_factor_secret)
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="card">
-                <div class="card-header">{{ __('Two Factor Authentication') }}</div>
-                <div class="card-body">
-                    <x-two-factor-manage />
-                </div>
+    <div class="max-w-4xl mx-auto px-4 py-6">
+        <div class="bg-white rounded-lg shadow-md border">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900">{{ __('Two Factor Authentication') }}</h3>
+            </div>
+            <div class="p-6">
+                <x-two-factor-manage />
             </div>
         </div>
     </div>
 @endif
 
-<div class="row justify-content-center">
-    <div class="col-md-5 mb-4">
-        <div class="card h-100 pt-3 pb-1">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{__('Posts')}}</div>
-                        <h4 class="mb-0 font-weight-bold text-gray-800">{{ App\Models\Post::count() }}</h4>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-cubes fa-3x"></i>
-                    </div>
+<div class="max-w-4xl mx-auto px-4 py-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-lg shadow-md border p-6 h-full">
+            <div class="flex items-center justify-between">
+                <div class="flex-1">
+                    <div class="text-xs font-bold text-blue-600 uppercase tracking-wide mb-1">{{ __('Posts') }}</div>
+                    <h4 class="text-3xl font-bold text-gray-800 mb-0">{{ App\Models\Post::count() }}</h4>
+                </div>
+                <div class="ml-4">
+                    <i class="fas fa-cubes text-3xl text-blue-500"></i>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-5 mb-4">
-        <div class="card h-100 pt-3 pb-1">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{__('Categories')}}</div>
-                        <h4 class="mb-0 font-weight-bold text-gray-800">{{ App\Models\Category::count() }}</h4>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-book fa-3x"></i>
-                    </div>
+        <div class="bg-white rounded-lg shadow-md border p-6 h-full">
+            <div class="flex items-center justify-between">
+                <div class="flex-1">
+                    <div class="text-xs font-bold text-blue-600 uppercase tracking-wide mb-1">{{ __('Categories') }}</div>
+                    <h4 class="text-3xl font-bold text-gray-800 mb-0">{{ App\Models\Category::count() }}</h4>
+                </div>
+                <div class="ml-4">
+                    <i class="fas fa-book text-3xl text-blue-500"></i>
                 </div>
             </div>
         </div>

@@ -9,205 +9,207 @@
 @endsection
 
 @section('content')
-<div class="row justify-content-center">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
     @if(!empty($content->url))
-        <div class="col-lg-10 mb-3 text-right">
-            <a href="{{ route('posts.show', [app()->getLocale(), $content->url]) }}" class="btn btn-secondary" target="_blank">{{ __('Show') }}</a>
+        <div class="mb-4 text-right">
+            <a href="{{ route('posts.show', [app()->getLocale(), $content->url]) }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 active:bg-gray-500 shadow-sm transition duration-150 ease-in-out">
+                {{ __('Show') }}
+            </a>
         </div>
     @endif
 
-    <div class="col-lg-10">
-        <div class="card">
-            <div class="card-header">
-                <span class="card-title h5">{{ $prefix }} {{ __('Post') }}</span>
+    <div class="bg-white rounded-lg shadow-md border overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-medium text-gray-900">{{ $prefix }} {{ __('Post') }}</h3>
+        </div>
+        <div class="p-6">
+            <div class="mb-4 text-right">
+                <x-choose-lang-admin />
             </div>
-            <div class="card-body">
-                <div class="mb-2 text-right">
-                    <x-choose-lang-admin />
+
+            @empty($post)
+                <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
+            @else
+                @empty($content)
+                    <div class="text-center hidden-form-info">
+                        <p>{{ __('There is no data defined for this language.') }}</p>
+                        <button type="button" class="hidden-form-toggle inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 active:bg-blue-800 shadow-sm transition duration-150 ease-in-out" data-toggle="tooltip" title="{{ __('Add data for this language') }}">
+                            <i class="fas fa-plus mr-2"></i>
+                        </button>
+                    </div>
+                @endempty
+
+                <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" class="{{ empty($content) ? 'hidden hidden-form' : '' }}">
+                @method('PUT')
+            @endempty
+                @csrf
+
+                <input type="hidden" name="content[lang]" value="{{ app()->getLocale() }}">
+
+                <div class="mb-4">
+                    <label for="title" class="block text-sm font-medium text-gray-700 mb-2">{{ __('title') }}*</label>
+                    <input type="text" id="title" name="content[title]" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('content.title') border-red-500 @enderror" value="{{ $content->title ?? old('content.title') }}" required>
+                    @error('content.title')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="url" class="block text-sm font-medium text-gray-700 mb-2">{{ __('url') }}*</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            {{ route('index', app()->getLocale()) }}/posts/
+                        </span>
+                        <input type="text" id="url" name="content[url]" class="block w-full pl-64 pr-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('content.url') border-red-500 @enderror" value="{{ $content->url ?? old('content.url') }}" required>
+                    </div>
+                    @error('content.url')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="content" class="block text-sm font-medium text-gray-700 mb-2">{{ __('content') }}*</label>
+                    <textarea id="content" name="content[content]" rows="4" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('content.content') border-red-500 @enderror">{{ $content->content ?? old('content.content') }}</textarea>
+                    @error('content.content')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 @empty($post)
-                    <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
-                @else
-                    @empty($content)
-                        <div class="text-center hidden-form-info">
-                            <p>{{ __('There is no data defined for this language.') }}</p>
-                            <button type="button" class="btn btn-lg btn-primary fas fa-2x fa-plus" data-toggle="tooltip" title="{{ __('Add data for this language') }}"></button>
-                        </div>
-                    @endempty
-
-                    <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" class="{{ empty($content) ? 'd-none hidden-form' : '' }}">
-                    @method('PUT')
+                    <div class="mb-4">
+                        <x-input-thumbnail label="thumbnail"></x-input-thumbnail>
+                    </div>
                 @endempty
-                    @csrf
 
-                    <input type="hidden" name="content[lang]" value="{{ app()->getLocale() }}">
-
-                    <div class="form-group">
-                        <label for="title">{{ __('title') }}*</label>
-                        <input type="text" id="title" name="content[title]" class="form-control @error('content.title') is-invalid @enderror" value="{{ $content->title ?? old('content.title') }}" required>
-                        @error('content.title')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="url">{{ __('url') }}*</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">{{ route('index', app()->getLocale()) }}/posts/</span>
-                            </div>
-                            <input type="text" id="url" name="content[url]" class="form-control @error('content.url') is-invalid @enderror" value="{{ $content->url ?? old('content.url') }}" required>
-                            @error('content.url')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="content">{{ __('content') }}*</label>
-                        <textarea id="content" name="content[content]" class="form-control  @error('content.content') is-invalid @enderror">{{ $content->content ?? old('content.content') }}</textarea>
-                        @error('content.content')
-                            <span class="form-text text-danger" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
+                <div class="mb-4">
                     @empty($post)
-                        <div class="form-group">
-                            <x-input-thumbnail label="thumbnail"></x-input-thumbnail>
-                        </div>
+                        <x-select-categories />
+                    @else
+                        <x-select-categories :value="Arr::flatten($post->categories()->pluck('id')->values()->toArray()) ?? null" />
                     @endempty
+                </div>
 
-                    <div class="form-group">
-                        @empty($post)
-                            <x-select-categories />
-                        @else
-                            <x-select-categories :value="Arr::flatten($post->categories()->pluck('id')->values()->toArray()) ?? null" />
-                        @endempty
-                    </div>
+                <div class="mb-4">
+                    <label for="tags" class="block text-sm font-medium text-gray-700 mb-2">{{ __('Tags') }}</label>
+                    <input type="text" id="tags" name="tags" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('tags') border-red-500 @enderror" value="{{ $post->tags ?? old('tags') }}">
+                    @error('tags')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                    <div class="form-group">
-                        <label for="tags">{{ __('Tags') }}</label>
-                        <input type="text" id="tags" name="tags" class="form-control @error('tags') is-invalid @enderror" value="{{ $post->tags ?? old('tags') }}">
-                        @error('tags')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+                <div class="mb-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded @if(!empty($post->is_visible) && $post->is_visible) checked @endif" id="is_visible" name="is_visible">
+                        <span class="ml-2 text-sm text-gray-900">{{ __('visible') }}</span>
+                    </label>
+                </div>
 
-                    <div class="form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="is_visible" name="is_visible" @if(!empty($post->is_visible) && $post->is_visible) checked @endif>
-                            <label class="custom-control-label" for="is_visible">{{ __('visible') }}</label>
-                        </div>
-                    </div>
-
-                    <div id="release-inputs">
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-8">
-                                    <label for="publish_at_date">{{ __('Publish At Date') }}</label>
-                                    <input type="date" id="publish_at_date" name="publish_at_date" class="form-control">{{ !empty($post->publish_at) ? $post->publish_at->format('Y-m-d') : '' }}
-                                    @error('publish_at_date')
-                                        <span class="form-text text-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="publish_at_time">{{ __('Publish At Time') }}</label>
-                                    <input type="time" id="publish_at_time" name="publish_at_time" class="form-control">{{ !empty($post->publish_at) ? $post->publish_at->format('H:i') : '' }}
-                                    @error('publish_at_time')
-                                        <span class="form-text text-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                <div id="release-inputs">
+                    <div class="mb-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="md:col-span-2">
+                                <label for="publish_at_date" class="block text-sm font-medium text-gray-700 mb-2">{{ __('Publish At Date') }}</label>
+                                <input type="date" id="publish_at_date" name="publish_at_date" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('publish_at_date') border-red-500 @enderror" value="{{ !empty($post->publish_at) ? $post->publish_at->format('Y-m-d') : '' }}">
+                                @error('publish_at_date')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="publish_at_time" class="block text-sm font-medium text-gray-700 mb-2">{{ __('Publish At Time') }}</label>
+                                <input type="time" id="publish_at_time" name="publish_at_time" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('publish_at_time') border-red-500 @enderror" value="{{ !empty($post->publish_at) ? $post->publish_at->format('H:i') : '' }}">
+                                @error('publish_at_time')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">{{ $prefix }}</button>
+                <div class="mb-6">
+                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 active:bg-blue-800 shadow-sm transition duration-150 ease-in-out">
+                        {{ $prefix }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if(!empty($post))
+        <div class="mt-6 bg-white rounded-lg shadow-md border overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900">{{ __('Thumbnail') }}</h3>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <form action="{{ route('admin.posts.image.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="mb-4">
+                                <x-input-thumbnail label="Thumbnail"></x-input-thumbnail>
+                            </div>
+
+                            <div class="mb-0">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 active:bg-blue-800 shadow-sm transition duration-150 ease-in-out">
+                                    {{ __('Set thumbnail') }}
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+
+                    <div>
+                        <div id="holder">
+                            @if(!empty($post->thumbnail_path))
+                                <form action="{{ route('admin.posts.image.destroy', $post->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <div class="mb-4">
+                                        <img class="w-full max-w-xs mx-auto rounded-lg" src="{{ $post->thumbnail }}" alt="{{ $content->title ?? '' }}">
+                                    </div>
+
+                                    <div class="mb-0">
+                                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 active:bg-red-800 shadow-sm transition duration-150 ease-in-out">
+                                            {{ __('Delete exists thumbnail') }}
+                                        </button>
+                                    </div>
+                                </form>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        @if(!empty($post))
-            <div class="card mt-4">
-                <div class="card-header">
-                    <span class="card-title h5">{{ __('Thumbnail') }}</span>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <form action="{{ route('admin.posts.image.update', $post->id) }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-
-                                <div class="form-group">
-                                    <x-input-thumbnail label="Thumbnail"></x-input-thumbnail>
-                                </div>
-
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">{{ __('Set thumbnail') }}</button>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div id="holder">
-                                @if(!empty($post->thumbnail_path))
-                                    <form action="{{ route('admin.posts.image.destroy', $post->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <div class="form-group">
-                                            <img class="img-fluid my-1" src="{{ $post->thumbnail }}" alt="{{ $content->title ?? '' }}">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-danger">{{ __('Delete exists thumbnail') }}</button>
-                                        </div>
-                                    </form>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="mt-6 bg-white rounded-lg shadow-md border overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900">{{ __('Delete') }} {{ __('Post') }}</h3>
             </div>
-
-            <div class="card mt-4">
-                <div class="card-header">
-                    <span class="card-title h5">{{ __('Delete') }} {{ __('Post') }}</span>
-                </div>
-                <div class="card-body">
-                    <p class="text-muted">{{ __('Be careful when using this operation.') }}</p>
-                    <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" class="d-inline pr-2">
+            <div class="p-6">
+                <p class="text-gray-600 mb-4">{{ __('Be careful when using this operation.') }}</p>
+                <div class="space-x-2">
+                    <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
+                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 active:bg-red-800 shadow-sm transition duration-150 ease-in-out">
+                            {{ __('Delete') }}
+                        </button>
                     </form>
 
                     @if(!empty($content))
-                        <form action="{{ route('admin.post-content.destroy', $content->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('admin.post-content.destroy', $content->id) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">{{ __('Delete only data for this langauge') }}</button>
+                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 active:bg-red-800 shadow-sm transition duration-150 ease-in-out">
+                                {{ __('Delete only data for this langauge') }}
+                            </button>
                         </form>
                     @endif
                 </div>
             </div>
-        @endif
-    </div>
+        </div>
+    @endif
 </div>
 @endsection
 
@@ -215,5 +217,13 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="{{ asset('js/close.js') }}"></script>
     <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
-    <script>$('#lfm').filemanager('image');</script>
+    <script>
+        $('#lfm').filemanager('image');
+        
+        // Toggle hidden form
+        $('.hidden-form-toggle').click(function() {
+            $('.hidden-form-info').addClass('hidden');
+            $('.hidden-form').removeClass('hidden');
+        });
+    </script>
 @endpush

@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="@yield('description', '')">
     <meta name="keywords" content="@yield('keywords', 'Laravel, Blog, Better than WordPress')">
@@ -23,93 +23,89 @@
     @include('feed::links')
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
-    <div id="app" class="c-app">
-        <div class="c-wrapper">
-            <header class="c-header c-header-dark" itemscope itemtype="http://schema.org/WPHeader">
-                <nav class="w-100 navbar navbar-expand-md navbar-dark">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="{{ url('/') }}" itemprop="name">
-                            {{ config('app.name') }}
-                        </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+    <div id="app" class="min-h-screen bg-gray-100">
+        <header class="bg-white shadow" itemscope itemtype="http://schema.org/WPHeader">
+            <nav class="flex flex-wrap items-center justify-between px-4 py-3 mx-auto max-w-7xl">
+                <a class="text-xl font-bold text-gray-800" href="{{ url('/') }}" itemprop="name">
+                    {{ config('app.name') }}
+                </a>
+                <button class="md:hidden text-gray-600 focus:outline-none" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
 
-                        <div class="collapse navbar-collapse" id="navbarMain">
-                            <ul class="navbar-nav mr-auto navbar-main" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
-                                <li class="nav-item" itemprop="hasPart">
-                                    <a class="nav-link" itemprop="url" href="{{ route('index', app()->getLocale()) }}">Start</a>
-                                </li>
+                <div class="hidden md:flex md:flex-grow md:justify-end" id="navbarMain">
+                    <ul class="flex space-x-6" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
+                        <li class="nav-item" itemprop="hasPart">
+                            <a class="text-gray-700 hover:text-gray-900" itemprop="url" href="{{ route('index', app()->getLocale()) }}">Start</a>
+                        </li>
 
-                                <li class="nav-item dropdown" itemprop="hasPart">
-                                    <a id="categoriesDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{ __('Categories') }}
-                                    </a>
+                        <li class="relative nav-item" itemprop="hasPart">
+                            <a id="categoriesDropdown" class="text-gray-700 hover:text-gray-900" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ __('Categories') }}
+                            </a>
 
-                                    <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                                        <a itemprop="url" class="dropdown-item" href="{{ route('categories.index', app()->getLocale()) }}">
-                                            {{ __('All') }}
-                                        </a>
+                            <div class="absolute hidden bg-white border rounded-md shadow-lg mt-2 z-10 min-w-max" aria-labelledby="categoriesDropdown">
+                                <a itemprop="url" class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="{{ route('categories.index', app()->getLocale()) }}">
+                                    {{ __('All') }}
+                                </a>
 
-                                        @foreach(App\Models\Category::with('content')->get() as $category)
-                                            @php $content = $category->content()->first(); @endphp
-                                            @if(!empty($content))
-                                                <span itemprop="hasPart">
-                                                    <a itemprop="url" class="dropdown-item" href="{{ route('categories.show', [app()->getLocale(), $content->url]) }}">
-                                                        {{ __($content->title) }}
-                                                    </a>
-                                                </span>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                </li>
-
-                                <li class="nav-item" itemprop="hasPart">
-                                    <a itemprop="url" class="nav-link" href="{{ route('posts.index', app()->getLocale()) }}">{{ __('Posts') }}</a>
-                                </li>
-                            </ul>
-
-                            <ul class="navbar-nav ml-auto">
-                                @foreach (config('blog.available_locales') as $locale)
-                                    <li class="nav-item">
-                                        <a class="nav-link mr-1 @if(app()->getLocale() == $locale) font-weight-bold disabled @endif" href="{{ route('index', $locale) }}">{{ strtoupper($locale) }}</a>
-                                    </li>
+                                @foreach(App\Models\Category::with('content')->get() as $category)
+                                    @php $content = $category->content()->first(); @endphp
+                                    @if(!empty($content))
+                                        <span itemprop="hasPart">
+                                            <a itemprop="url" class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="{{ route('categories.show', [app()->getLocale(), $content->url]) }}">
+                                                {{ __($content->title) }}
+                                            </a>
+                                        </span>
+                                    @endif
                                 @endforeach
+                            </div>
+                        </li>
 
-                                <form method="GET" action="{{ route('posts.index', app()->getLocale()) }}" class="form-inline my-2 my-lg-0">
-                                    <input type="search" name="q" class="form-control mr-sm-2" placeholder="{{ __('Search') }}" aria-label="{{ __('Search') }}" value="{{ $q ?? '' }}">
-                                    <button type="submit" class="btn btn-outline-secondary my-2 my-sm-0">{{ __('Search') }}</button>
-                                </form>
+                        <li class="nav-item" itemprop="hasPart">
+                            <a itemprop="url" class="text-gray-700 hover:text-gray-900" href="{{ route('posts.index', app()->getLocale()) }}">{{ __('Posts') }}</a>
+                        </li>
+                    </ul>
 
-                                @auth
-                                    <li class="ml-2 nav-item dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            {{ auth()->user()->name }}
-                                        </a>
+                    <ul class="flex items-center space-x-4 ml-6">
+                        @foreach (config('blog.available_locales') as $locale)
+                            <li class="nav-item">
+                                <a class="text-sm text-gray-700 @if(app()->getLocale() == $locale) font-bold text-gray-900 cursor-not-allowed @endif" href="{{ route('index', $locale) }}">{{ strtoupper($locale) }}</a>
+                            </li>
+                        @endforeach
 
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            @include('layouts.parts.menu')
-                                        </div>
-                                    </li>
-                                @endauth
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </header>
+                        <form method="GET" action="{{ route('posts.index', app()->getLocale()) }}" class="flex ml-6">
+                            <input type="search" name="q" class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="{{ __('Search') }}" aria-label="{{ __('Search') }}" value="{{ $q ?? '' }}">
+                            <button type="submit" class="ml-2 px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                                {{ __('Search') }}
+                            </button>
+                        </form>
 
-            <div class="c-body">
-                <main class="c-main">
-                    <div class="@yield('container', 'container')">
-                        @include('components.alert')
-                        @yield('content')
-                    </div>
-                </main>
+                        @auth
+                            <li class="relative nav-item">
+                                <a id="navbarDropdown" class="text-gray-700 hover:text-gray-900" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ auth()->user()->name }}
+                                </a>
+
+                                <div class="absolute right-0 bg-white border rounded-md shadow-lg mt-2 z-10 min-w-max" aria-labelledby="navbarDropdown">
+                                    @include('layouts.parts.menu')
+                                </div>
+                            </li>
+                        @endauth
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex-grow">
+            <div class="@yield('container', 'px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8')">
+                @include('components.alert')
+                @yield('content')
             </div>
+        </main>
 
-            @include('components.noscript')
-            @include('layouts.parts.footer')
-        </div>
+        @include('components.noscript')
+        @include('layouts.parts.footer')
     </div>
 </body>
 </html>

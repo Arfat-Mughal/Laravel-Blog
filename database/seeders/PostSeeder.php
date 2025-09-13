@@ -24,17 +24,13 @@ class PostSeeder extends Seeder
             ]);
 
             $locales = config('blog.available_locales');
-            $contentDefault = PostContent::factory()->create(['lang' => $locales[0]]);
-            DB::table('contents_of_posts')->insert([
-                'post_id' => $post->id,
-                'content_id' => $contentDefault->id,
-            ]);
-
-            $contentSecond = PostContent::factory()->create(['lang' => $locales[1]]);
-            DB::table('contents_of_posts')->insert([
-                'post_id' => $post->id,
-                'content_id' => $contentSecond->id,
-            ]);
+            foreach ($locales as $locale) {
+                $content = PostContent::factory()->create(['lang' => $locale]);
+                DB::table('contents_of_posts')->insert([
+                    'post_id' => $post->id,
+                    'content_id' => $content->id,
+                ]);
+            }
         });
     }
 }

@@ -1,8 +1,8 @@
 @if(!empty($label))
-    <label for="{{ $name }}">{{ __($label) }}</label>
+    <label for="{{ $name }}" class="block text-sm font-medium text-gray-700 mb-2">{{ __($label) }}</label>
 @endif
-<div class="input-group">
-    <ul class="list-unstyled">
+<div class="space-y-2">
+    <ul class="space-y-1">
         @foreach($options as $key => $val)
             @php $find = false; @endphp
             @if(is_array($value))
@@ -13,14 +13,14 @@
                 @endforeach
             @endif
             <li>
-                <div class="custom-control custom-checkbox d-inline m-1">
-                    <input type="checkbox" class="custom-control-input" id="{{ $name.'_'.$key }}" name="{{ $name }}[]" value="{{ $key }}" @if($find) checked @endif>
-                    <label class="custom-control-label" for="{{ $name.'_'.$key }}">{{ $val }}</label>
-                </div>
+                <label class="flex items-center py-1">
+                    <input type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" id="{{ $name.'_'.$key }}" name="{{ $name }}[]" value="{{ $key }}" @if($find) checked @endif>
+                    <span class="ml-2 text-sm text-gray-900">{{ $val }}</span>
+                </label>
             </li>
         @endforeach
-        @error($name)
-            <small class="text-danger form-text">{{ $message }}</small>
-        @enderror
     </ul>
+    @error($name)
+        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+    @enderror
 </div>

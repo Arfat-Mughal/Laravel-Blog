@@ -223,5 +223,7 @@
 @push('scripts')
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
-    <script>$('#lfm').filemanager('image');</script>
+    <script>
+        $('#lfm').filemanager('image');
+    </script>
 @endpush
