@@ -132,5 +132,9 @@
     "There is no data defined for this language.": "لا توجد بيانات محددة لهذه اللغة.",
     "Add data for this language": "إضافة بيانات لهذه اللغة",
     "This language data has been deleted.": "تم حذف بيانات هذه اللغة.",
-    "Open in new card": "فتح في علامة تبويب جديدة"
+    "Open in new card": "فتح في علامة تبويب جديدة",
+    "Home": "الرئيسية",
+    "Menu": "القائمة",
+    "app_name": "مدونة لارافيل",
+    "welcome_to": "مرحبا بك في"
 }

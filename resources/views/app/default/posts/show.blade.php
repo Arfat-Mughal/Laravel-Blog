@@ -9,7 +9,7 @@
     @auth
         @if (auth()->user()->hasRole('admin') || auth()->user()->id == $post->author_id)
             <div class="col-12 mb-3 text-right">
-                <a href="{{ route('admin.posts.edit', $post->id) }} " class="btn btn-secondary">Edytuj</a>
+                <a href="{{ route('admin.posts.edit', $post->id) }} " class="btn btn-secondary">{{ __('Edit') }}</a>
             </div>
         @endif
     @endauth

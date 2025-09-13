@@ -132,5 +132,9 @@
     "There is no data defined for this language.": "没有为此语言定义数据。",
     "Add data for this language": "添加此语言的数据",
     "This language data has been deleted.": "此语言数据已被删除。",
-    "Open in new card": "在新标签页中打开"
+    "Open in new card": "在新标签页中打开",
+    "Home": "首页",
+    "Menu": "菜单",
+    "app_name": "Laravel 博客",
+    "welcome_to": "欢迎来到"
 }

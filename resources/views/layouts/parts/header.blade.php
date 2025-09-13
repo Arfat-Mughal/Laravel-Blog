@@ -3,7 +3,7 @@
     <nav class="flex flex-wrap items-center justify-between px-6 py-4 mx-auto max-w-7xl relative z-10">
         <a class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300" 
            href="{{ url('/') }}" itemprop="name">
-            {{ config('app.name') }}
+            {{ __('app_name') }}
         </a>
         
         <button class="md:hidden text-gray-600 hover:text-gray-800 focus:outline-none p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200" 
@@ -16,8 +16,8 @@
         <div class="hidden md:flex md:flex-grow md:justify-start ml-5 animate-slideInRight" id="navbarMain">
             <ul class="flex space-x-8" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
                 <li class="nav-item" itemprop="hasPart">
-                    <a class="nav-item-hover text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200" 
-                       itemprop="url" href="{{ route('index', app()->getLocale()) }}">Start</a>
+                    <a class="nav-item-hover text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200"
+                       itemprop="url" href="{{ route('index', app()->getLocale()) }}">{{ __('Home') }}</a>
                 </li>
 
                 <li class="relative nav-item dropdown" itemprop="hasPart">
@@ -152,7 +152,7 @@
         <div class="md:hidden mobile-menu fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl" id="mobileMenu">
             <div class="p-6">
                 <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-xl font-bold text-gray-800">Menu</h2>
+                    <h2 class="text-xl font-bold text-gray-800">{{ __('Menu') }}</h2>
                     <button onclick="toggleMobileMenu()" class="p-2 rounded-lg hover:bg-gray-100">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -161,7 +161,7 @@
                 </div>
                 
                 <nav class="space-y-4">
-                    <a href="{{ route('index', app()->getLocale()) }}" class="block py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-200">Start</a>
+                    <a href="{{ route('index', app()->getLocale()) }}" class="block py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-200">{{ __('Home') }}</a>
                     <a href="{{ route('categories.index', app()->getLocale()) }}" class="block py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-200">{{ __('Categories') }}</a>
                     <a href="{{ route('posts.index', app()->getLocale()) }}" class="block py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-200">{{ __('Posts') }}</a>
                 </nav>

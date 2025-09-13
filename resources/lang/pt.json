@@ -132,5 +132,9 @@
     "There is no data defined for this language.": "Não há dados definidos para este idioma.",
     "Add data for this language": "Adicionar dados para este idioma",
     "This language data has been deleted.": "Os dados deste idioma foram eliminados.",
-    "Open in new card": "Abrir num novo separador"
+    "Open in new card": "Abrir num novo separador",
+    "Home": "Página Inicial",
+    "Menu": "Menu",
+    "app_name": "Blog Laravel",
+    "welcome_to": "Bem-vindo ao"
 }

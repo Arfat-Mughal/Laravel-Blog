@@ -132,5 +132,9 @@
     "There is no data defined for this language.": "इस भाषा के लिए कोई डेटा परिभाषित नहीं है।",
     "Add data for this language": "इस भाषा के लिए डेटा जोड़ें",
     "This language data has been deleted.": "इस भाषा का डेटा हटा दिया गया है।",
-    "Open in new card": "नई टैब में खोलें"
+    "Open in new card": "नई टैब में खोलें",
+    "Home": "मुख्य पृष्ठ",
+    "Menu": "मेनू",
+    "app_name": "लारावेल ब्लॉग",
+    "welcome_to": "स्वागत है"
 }

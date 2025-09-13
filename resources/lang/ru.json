@@ -132,5 +132,9 @@
     "There is no data defined for this language.": "Для этого языка нет определенных данных.",
     "Add data for this language": "Добавить данные для этого языка",
     "This language data has been deleted.": "Данные этого языка были удалены.",
-    "Open in new card": "Открыть в новой вкладке"
+    "Open in new card": "Открыть в новой вкладке",
+    "Home": "Главная страница",
+    "Menu": "Меню",
+    "app_name": "Блог Laravel",
+    "welcome_to": "Добро пожаловать в"
 }
