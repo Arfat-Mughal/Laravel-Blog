@@ -1,33 +1,29 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\AppController;
+use App\Http\Controllers\AuthorsController;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\CategoriesController;
 
 Route::feeds();
 
-Route::get('/', 'AppController@start');
+Route::get('/', [AppController::class, 'start']);
 
 Route::group([
     'prefix' => '{lang}',
     'middleware' => 'setlang',
-    'where' => ['locale' => '[a-zA-Z]{2}'],
+    'where' => ['lang' => '[a-zA-Z]{2}'],
     'domain' => config('app.url'),
-], function(){
-    Route::get('/', 'AppController@index')->name('index');
-    Route::get('/about', 'AppController@about')->name('about');
-    Route::get('/privacy-policy', 'AppController@privacyPolicy')->name('privacy-policy');
-    Route::get('/authors/{author}', 'AuthorsController')->name('author');
+], function () {
+    Route::get('/', [AppController::class, 'index'])->name('index');
+    Route::get('/about', [AppController::class, 'about'])->name('about');
+    Route::get('/privacy-policy', [AppController::class, 'privacyPolicy'])->name('privacy-policy');
 
-    Route::resource('posts', 'PostsController')->only(['index', 'show']);
-    Route::resource('categories', 'CategoriesController')->only(['index', 'show']);
+    // Invokable controller
+    Route::get('/authors/{author}', AuthorsController::class)->name('author');
+
+    // Resource controllers (only index + show)
+    Route::resource('posts', PostsController::class)->only(['index', 'show']);
+    Route::resource('categories', CategoriesController::class)->only(['index', 'show']);
 });
