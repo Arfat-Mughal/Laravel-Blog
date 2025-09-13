@@ -31,9 +31,9 @@ class PostsController extends Controller
      * @param  string  $url
      * @return \Illuminate\View\View
      */
-    public function show(string $lang, string $url): View
+    public function show(string $lang, string $post): View
     {
-        $post = Post::findOrFailByUrl($url);
+        $post = Post::findOrFailByUrl($post);
         if ($post->isVisible() || (auth()->check() && (auth()->user()->id == $post->user_id || auth()->user()->hasRole('admin')))){
             return view('app.'.config('blog.theme').'.posts.show')->with([
                 'post' => $post,
