@@ -17,7 +17,6 @@ class RoleSeeder extends Seeder
     public function run()
     {
         foreach ($this->roles as $role) {
-            // Use updateOrInsert to avoid duplicates
             DB::table('roles')->updateOrInsert(
                 ['name' => $role['name']],
                 $role

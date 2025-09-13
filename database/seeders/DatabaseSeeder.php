@@ -16,10 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
-
-        if (App::environment() != 'production'){
-            $this->call(CategorySeeder::class);
-            $this->call(PostSeeder::class);
-        }
+        $this->call(CategorySeeder::class);
+        $this->call(PostSeeder::class);
     }
 }
