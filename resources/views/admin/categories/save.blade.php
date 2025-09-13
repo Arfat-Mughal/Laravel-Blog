@@ -1,6 +1,12 @@
 @extends('layouts.admin')
 
-@php $prefix = empty($category) ? __('Create') : __('Edit'); @endphp
+@php 
+    $prefix = empty($category) ? __('Create') : __('Edit');
+    $contentTitle = !empty($content) ? $content->title : old('content.title');
+    $contentUrl = !empty($content) ? $content->url : old('content.url');
+    $contentContent = !empty($content) ? $content->content : old('content.content');
+@endphp
+
 @section('title', $prefix.__('Category'))
 
 @section('breadcrumbs')
@@ -10,7 +16,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    @if(!empty($content->url))
+    @if(!empty($category) && !empty($content) && !empty($content->url))
         <div class="col-lg-10 mb-3 text-right">
             <a href="{{ route('categories.show', [app()->getLocale(), $content->url]) }} " class="btn btn-secondary" target="_blank">{{ __('Show') }}</a>
         </div>
@@ -32,11 +38,11 @@
                     @empty($content)
                         <div class="text-center hidden-form-info">
                             <p>{{ __('There is no data defined for this language.') }}</p>
-                            <button type="button" class="btn btn-lg btn-primary fas fa-2x fa-plus" data-toggle="tooltip" title="{{ __('Add data for this language') }}"></button>
+                            <button type="button" class="btn btn-lg btn-primary fas fa-2x fa-plus hidden-form-toggle" data-toggle="tooltip" title="{{ __('Add data for this language') }}"></button>
                         </div>
                     @endempty
 
-                    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" class="{{ empty($content) ? 'd-none hidden-form' : '' }}">
+                    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" class="{{ empty($content) ? 'd-none hidden-form' : '' }}" enctype="multipart/form-data">
                     @method('PUT')
                 @endempty
                     @csrf
@@ -45,7 +51,7 @@
 
                     <div class="form-group">
                         <label for="title">{{ __('title') }}*</label>
-                        <input type="text" id="title" name="content[title]" class="form-control @error('content.title') is-invalid @enderror" value="{{ $content->title ?? old('content.title') }}" required>
+                        <input type="text" id="title" name="content[title]" class="form-control @error('content.title') is-invalid @enderror" value="{{ $contentTitle }}" required>
                         @error('content.title')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -59,7 +65,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">{{ route('index', app()->getLocale()) }}/categories/</span>
                             </div>
-                            <input type="text" id="url" name="content[url]" class="form-control @error('content.url') is-invalid @enderror" value="{{ $content->url ?? old('content.url') }}" required>
+                            <input type="text" id="url" name="content[url]" class="form-control @error('content.url') is-invalid @enderror" value="{{ $contentUrl }}" required>
                             @error('content.url')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -70,7 +76,7 @@
 
                     <div class="form-group">
                         <label for="content">{{ __('content') }}*</label>
-                        <textarea id="content" name="content[content]" class="form-control @error('content.content') is-invalid @enderror">{{ $content->content ?? old('content.content') }}</textarea>
+                        <textarea id="content" name="content[content]" class="form-control @error('content.content') is-invalid @enderror">{{ $contentContent }}</textarea>
                         @error('content.content')
                             <span class="form-text text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -108,7 +114,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-danger">{{ __('Delete exists thumbnail') }}</button>
+                                    <button type="submit" class="btn btn-primary">{{ __('Set thumbnail') }}</button>
                                 </div>
                             </form>
                         </div>
@@ -121,11 +127,11 @@
                                         @method('DELETE')
 
                                         <div class="form-group">
-                                            <img class="img-fluid my-1" src="{{ $category->thumbnail }}" alt="{{ $content->title }}">
+                                            <img class="img-fluid my-1" src="{{ $category->thumbnail }}" alt="{{ !empty($content) ? $content->title : '' }}">
                                         </div>
 
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">{{ __('Set thumbnail') }}</button>
+                                            <button type="submit" class="btn btn-danger">{{ __('Delete exists thumbnail') }}</button>
                                         </div>
                                     </form>
                                 @endif
@@ -165,5 +171,13 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="{{ asset('js/close.js') }}"></script>
     <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
-    <script>$('#lfm').filemanager('image');</script>
+    <script>
+        $('#lfm').filemanager('image');
+        
+        // Toggle hidden form
+        $('.hidden-form-toggle').click(function() {
+            $('.hidden-form-info').addClass('d-none');
+            $('.hidden-form').removeClass('d-none');
+        });
+    </script>
 @endpush

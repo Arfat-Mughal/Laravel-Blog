@@ -99,38 +99,42 @@ class CategoriesController extends Controller
     public function update(CategoryStoreRequest $request, Category $category)
     {
         SetLangInAdminPanel::setLang($request->content['lang']);
+        $locale = $request->content['lang'];
 
-        $content = $category->content()->first();
-        if (!empty($content)){
-            if (!$this->validateContentUrlWithoutOne($request, $content))
+        $content = $category->contents()
+            ->where('lang', $locale)
+            ->first();
+
+        if ($content) {
+            if (!$this->validateContentUrlWithoutOne($request, $content)) {
                 return redirect()->back()->withError(__('This url already exists.'));
-        }
-        else {
-            if (!$this->validateContentUrl($request))
+            }
+        } else {
+            if (!$this->validateContentUrl($request)) {
                 return redirect()->back()->withError(__('This url already exists.'));
+            }
         }
 
         DB::beginTransaction();
         try {
-            $data = $this->getValidatedData($request);
-            $category->update($data);
+            $category->update($this->getValidatedData($request));
 
-            $contentData = $request->content;
-            if (empty($content)){
-                $content = Content::create($contentData);
-                $category->contents()->saveMany([$content]);
+            if ($content) {
+                $content->update($request->content);
+            } else {
+                $newContent = Content::create($request->content);
+                $category->contents()->save($newContent);
             }
-            else $content->update($contentData);
-            DB::commit();
 
+            DB::commit();
             return redirect()->back()->withSuccess('admin.categories.update');
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
             return redirect()->back()->withError('admin.error');
         }
     }
+
 
     /**
      * Remove the specified resource from storage.
