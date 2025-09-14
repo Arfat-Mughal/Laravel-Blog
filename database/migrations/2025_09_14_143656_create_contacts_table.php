@@ -19,7 +19,8 @@ class CreateContactsTable extends Migration
             $table->string('email');
             $table->string('subject');
             $table->text('message');
-            $table->string('ip_address');
+            $table->enum('status', ['pending', 'read', 'responded'])->default('pending');
+            $table->string('ip_address')->nullable();
             $table->timestamps();
         });
     }

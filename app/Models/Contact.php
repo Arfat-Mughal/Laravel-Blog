@@ -14,6 +14,10 @@ class Contact extends Model
         'email',
         'subject',
         'message',
-        'ip_address',
+        'status',
+    ];
+
+    protected $casts = [
+        'status' => 'string',
     ];
 }

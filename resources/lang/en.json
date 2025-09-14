@@ -1,5 +1,14 @@
 {
     "app_name" : "Laravel Blog",
     "welcome_to" : "Welcome to",
-    "contact_us": "Contact Us"
+    "contact_us": "Contact Us",
+    "view": "View",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "status": "Status",
+    "ip_address": "IP Address",
+    "created_at": "Created At",
+    "message": "Message",
+    "back_to_list": "Back to List"
 }

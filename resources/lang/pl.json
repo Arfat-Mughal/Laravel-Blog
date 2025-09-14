@@ -26,7 +26,7 @@
     "Regards": "Pozdrowienia",
     "Oh no": "O, nie",
     "Whoops!": "Ups!",
-    "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": " Jeśli masz problem z kliknięciem \":actionText\" przycisku, skopiuj poniższy adres URL i wklej go w przeglądarce internetowej:",
+    "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": " Jeśli masz problem z kliknięciem \":actionText\" przycisku, skopiuj poniższy adres URL i wklej go w przeglądarce internetowej:",
     "If you did not create an account, no further action is required.": "Jeśli nie utworzyłeś konta, nie są wymagane żadne dalsze działania",
     "Please click the button below to verify your email address.": "Kliknij przycisk poniżej, aby zweryfikować swój adres e-mail.",
     "Verify Email Address": "Zweryfikuj adres e-mail",
@@ -137,5 +137,15 @@
     "Menu": "Menu",
     "app_name": "Blog Laravel",
     "welcome_to": "Witamy w",
-    "contact_us": "Skontaktuj się z nami"
+    "contact_us": "Skontaktuj się z nami",
+    "view": "Podgląd",
+    "contact": "Kontakt",
+    "name": "Imię",
+    "email": "Email",
+    "subject": "Temat",
+    "status": "Status",
+    "ip_address": "Adres IP",
+    "created_at": "Utworzono",
+    "message": "Wiadomość",
+    "back_to_list": "Powrót do listy"
 }

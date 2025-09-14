@@ -61,6 +61,9 @@ Route::group([
             Route::put('/categories/{category}/image', [CategoriesController::class, 'updateImage'])->name('categories.image.update');
             Route::delete('/categories/{category}/image', [CategoriesController::class, 'destroyImage'])->name('categories.image.destroy');
             Route::resource('categories', CategoriesController::class)->except('show');
+
+            // Contacts
+            Route::resource('contacts', \App\Http\Controllers\Admin\ContactController::class);
         });
 
         // User Panel
