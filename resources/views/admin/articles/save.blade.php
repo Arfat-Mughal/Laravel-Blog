@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@php $prefix = empty($post) ? __('Create') : __('Edit'); @endphp
-@section('title', $prefix.__('Post'))
+@php $prefix = empty($article) ? __('Create') : __('Edit'); @endphp
+@section('title', $prefix.__('Article'))
 
 @section('breadcrumbs')
     <li class="breadcrumb-item"><a href="{{ route('admin.posts.index') }}">{{ __('Posts') }}</a></li>
@@ -20,7 +20,7 @@
 
     <div class="bg-white rounded-lg shadow-md border overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-200">
-            <h3 class="text-lg font-medium text-gray-900">{{ $prefix }} {{ __('Post') }}</h3>
+            <h3 class="text-lg font-medium text-gray-900">{{ $prefix }} {{ __('Article') }}</h3>
         </div>
         <div class="p-6">
             <div class="mb-4 text-right">
@@ -184,7 +184,7 @@
 
         <div class="mt-6 bg-white rounded-lg shadow-md border overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-medium text-gray-900">{{ __('Delete') }} {{ __('Post') }}</h3>
+                <h3 class="text-lg font-medium text-gray-900">{{ __('Delete') }} {{ __('Article') }}</h3>
             </div>
             <div class="p-6">
                 <p class="text-gray-600 mb-4">{{ __('Be careful when using this operation.') }}</p>

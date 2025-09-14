@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Article;
 use App\Models\Category;
-use App\Models\Post;
 use App\Models\User;
+use App\Observers\ArticleObserver;
 use App\Observers\CategoryObserver;
-use App\Observers\PostObserver;
 use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -37,6 +37,6 @@ class AppServiceProvider extends ServiceProvider
 
         User::observe(UserObserver::class);
         Category::observe(CategoryObserver::class);
-        Post::observe(PostObserver::class);
+        Article::observe(ArticleObserver::class);
     }
 }

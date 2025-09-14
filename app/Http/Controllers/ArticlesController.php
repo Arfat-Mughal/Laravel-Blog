@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class PostsController extends Controller
+class ArticlesController extends Controller
 {
     /**
      * Display a listing of the resource.

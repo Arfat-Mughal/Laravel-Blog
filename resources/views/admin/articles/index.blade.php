@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', __('Posts'))
+@section('title', __('Articles'))
 
 @section('breadcrumbs')
     <li class="breadcrumb-item active" aria-current="page">{{ __('Posts') }}</li>
@@ -12,7 +12,7 @@
         <a class="btn btn-primary" href="{{ route('admin.posts.create') }}">{{ __('Add Post') }}</a>
         <div class="card mt-3">
             <div class="card-header">
-                <span class="card-title h5">{{ __('Posts') }}</span>
+                <span class="card-title h5">{{ __('Articles') }}</span>
             </div>
             <div class="card-body p-0">
                 <div class="pt-3 pb-2 px-4">

@@ -37,6 +37,10 @@
     },
     "dependencies": {
         "alpinejs": "^3.13.5",
+        "aos": "^2.3.4",
+        "lottie-web": "^5.13.0",
+        "prismjs": "^1.30.0",
+        "purgecss": "^7.0.2",
         "tinymce": "^5.9.2"
     }
 }

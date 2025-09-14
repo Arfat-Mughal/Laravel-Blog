@@ -5,18 +5,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\SetLangInAdminPanel;
 use App\Http\Requests\ImageRequest;
-use App\Http\Requests\PostStoreRequest;
+use App\Http\Requests\ArticleStoreRequest;
 use App\Models\Category;
-use App\Models\PostContent;
-use App\Models\Post;
-use App\Services\PostContentUrlValidator;
+use App\Models\ArticleContent;
+use App\Models\Article;
+use App\Services\ArticleContentUrlValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
-class PostsController extends Controller
+class ArticlesController extends Controller
 {
     use PostContentUrlValidator;
 

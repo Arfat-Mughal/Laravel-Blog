@@ -3,7 +3,7 @@
 return [
     'feeds' => [
         'main' => [
-            'items' => 'App\Models\Post@getFeedItems',
+            'items' => 'App\Models\Article@getFeedItems',
 
             'url' => '/feeds',
 

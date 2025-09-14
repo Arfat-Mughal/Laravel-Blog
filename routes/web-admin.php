@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\PostsController;
+use App\Http\Controllers\Admin\ArticlesController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\UsersPasswordController;
@@ -38,13 +38,13 @@ Route::group([
             \UniSharp\LaravelFilemanager\Lfm::routes();
         });
 
-        // Posts
-        Route::put('/posts/{post}/image', [PostsController::class, 'updateImage'])->name('posts.image.update');
-        Route::delete('/posts/{post}/image', [PostsController::class, 'destroyImage'])->name('posts.image.destroy');
-        Route::resource('posts', PostsController::class)->except('show');
+        // Articles
+        Route::put('/articles/{article}/image', [ArticlesController::class, 'updateImage'])->name('articles.image.update');
+        Route::delete('/articles/{article}/image', [ArticlesController::class, 'destroyImage'])->name('articles.image.destroy');
+        Route::resource('articles', ArticlesController::class)->except('show');
 
-        // Post Content
-        Route::delete('/post-content/{postContent}', [ContentController::class, 'deletePostContent'])->name('post-content.destroy');
+        // Article Content
+        Route::delete('/article-content/{articleContent}', [ContentController::class, 'deleteArticleContent'])->name('article-content.destroy');
 
         // Admin-only routes
         Route::middleware('role:admin')->group(function () {

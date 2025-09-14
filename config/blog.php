@@ -20,7 +20,7 @@ return [
         'color' => '#dee2e6'
     ],
 
-    'allow_register' => false,
+    'allow_register' => true,
 
     'available_locales' => [
         'en',

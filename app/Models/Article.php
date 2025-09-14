@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
 
-class Post extends Model implements Searchable, Feedable
+class Article extends Model implements Searchable, Feedable
 {
     use HasFactory, HasThumbnail;
 

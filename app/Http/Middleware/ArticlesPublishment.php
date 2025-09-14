@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Post;
+use App\Models\Article;
 use Closure;
 use Illuminate\Http\Request;
 
-class PostsPublishment
+class ArticlesPublishment
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class PostsPublishment
      */
     public function handle(Request $request, Closure $next)
     {
-        Post::whereNotNull('publish_at')->where('publish_at', '>=', now())->update([
+        Article::whereNotNull('publish_at')->where('publish_at', '>=', now())->update([
             'publish_at' => null,
             'is_visible' => true
         ]);

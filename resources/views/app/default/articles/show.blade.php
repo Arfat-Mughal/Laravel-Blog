@@ -2,14 +2,14 @@
 
 @section('title', $content->title)
 @section('description', $content->description)
-@section('keywords', $post->tags)
+@section('keywords', $article->tags)
 
 @section('content')
 <div class="row" itemscope itemtype="http://schema.org/BlogPosting">
     @auth
-        @if (auth()->user()->hasRole('admin') || auth()->user()->id == $post->author_id)
+        @if (auth()->user()->hasRole('admin') || auth()->user()->id == $article->author_id)
             <div class="col-12 mb-3 text-right">
-                <a href="{{ route('admin.posts.edit', $post->id) }} " class="btn btn-secondary">{{ __('Edit') }}</a>
+                <a href="{{ route('admin.articles.edit', $article->id) }} " class="btn btn-secondary">{{ __('Edit') }}</a>
             </div>
         @endif
     @endauth
@@ -44,21 +44,21 @@
     <div class="col-12 mt-4">
         <div class="card">
             <div class="card-body p-2">
-                {{ __('Tags') }}: {{ $post->tags }}
+                {{ __('Tags') }}: {{ $article->tags }}
             </div>
         </div>
     </div>
 
     <div class="col-12 mt-2">
-        <x-author-note :author="$post->author" />
+        <x-author-note :author="$article->author" />
     </div>
 
-    @php $relativePosts = $post->relativePosts(); @endphp
-    @if($relativePosts->count() > 0)
+    @php $relativeArticles = $article->relativeArticles(); @endphp
+    @if($relativeArticles->count() > 0)
         <div class="col-12 mt-4" itemscope itemtype="http://schema.org/Blog">
-            <h5>{{ __('Other posts that may interest you') }}:</h5>
-            @foreach($relativePosts as $post)
-                <x-post-item :post="$post" />
+            <h5>{{ __('Other articles that may interest you') }}:</h5>
+            @foreach($relativeArticles as $article)
+                <x-article-item :article="$article" />
             @endforeach
         </div>
     @endif
