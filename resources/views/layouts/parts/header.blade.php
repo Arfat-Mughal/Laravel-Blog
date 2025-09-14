@@ -70,14 +70,25 @@
                     </button>
 
                     <div class="dropdown-menu absolute right-0 bg-white border border-gray-200 rounded-xl shadow-xl mt-2 z-30 min-w-max overflow-hidden">
-                        @foreach (config('blog.available_locales') as $locale)
-                            <a class="flex items-center px-4 py-3 text-sm transition-all duration-200 
-                                    @if(app()->getLocale() == $locale) 
-                                        bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 font-semibold border-l-4 border-blue-500
-                                    @else 
-                                        text-gray-700 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 hover:text-gray-900
-                                    @endif" 
-                            href="{{ route('index', $locale) }}">
+                       @foreach (config('blog.available_locales') as $locale)
+                            @php
+                                $route = request()->route();
+                                $params = $route ? $route->parameters() : [];
+                                $params['lang'] = $locale;
+
+                                // Use current route name if available, otherwise fallback to index
+                                $url = ($route && $route->getName())
+                                    ? route($route->getName(), $params)
+                                    : route('index', $locale);
+                            @endphp
+
+                            <a href="{{ $url }}" class="flex items-center px-4 py-3 text-sm transition-all duration-200
+                                @if(app()->getLocale() == $locale) 
+                                    bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 font-semibold border-l-4 border-blue-500
+                                @else 
+                                    text-gray-700 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 hover:text-gray-900
+                                @endif">
+                                {{-- Flag and text as before --}}
                                 <span class="mr-3 text-lg">
                                     @if($locale == 'en') 🇺🇸
                                     @elseif($locale == 'pl') 🇵🇱
