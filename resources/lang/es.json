@@ -137,5 +137,15 @@
     "Menu": "Menú",
     "app_name": "Blog de Laravel",
     "welcome_to": "Bienvenido a",
-    "contact_us": "Contáctenos"
+    "contact_us": "Contáctenos",
+    "Quick Links": "Enlaces Rápidos",
+    "About Us": "Sobre Nosotros",
+    "Blog": "Blog",
+    "Resources": "Recursos",
+    "Help Center": "Centro de Ayuda",
+    "Terms & Conditions": "Términos y Condiciones",
+    "FAQ": "Preguntas Frecuentes",
+    "Contact": "Contacto",
+    "All rights reserved.": "Todos los derechos reservados.",
+    "Discover insightful articles, cutting-edge tutorials, and inspiring stories. Built with modern technology and optimized for the best reading experience.": "Descubre artículos perspicaces, tutoriales de vanguardia e historias inspiradoras. Construido con tecnología moderna y optimizado para la mejor experiencia de lectura."
 }

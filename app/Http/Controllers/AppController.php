@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class AppController extends Controller
@@ -66,6 +65,42 @@ class AppController extends Controller
     public function privacyPolicy(Request $request, string $lang): View
     {
         return view('app.privacy-policy');
+    }
+
+    /**
+     * Handle the FAQ page.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param string $lang
+     * @return \Illuminate\View\View
+     */
+    public function faq(Request $request, string $lang): View
+    {
+        return view('app.faq');
+    }
+
+    /**
+     * Handle the terms page.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param string $lang
+     * @return \Illuminate\View\View
+     */
+    public function terms(Request $request, string $lang): View
+    {
+        return view('app.terms');
+    }
+
+    /**
+     * Handle the help page.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param string $lang
+     * @return \Illuminate\View\View
+     */
+    public function help(Request $request, string $lang): View
+    {
+        return view('app.help');
     }
 
     /**

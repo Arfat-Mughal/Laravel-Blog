@@ -1,6 +1,6 @@
 {
-    "app_name" : "Laravel Blog",
-    "welcome_to" : "Welcome to",
+    "app_name": "Laravel Blog",
+    "welcome_to": "Welcome to",
     "contact_us": "Contact Us",
     "view": "View",
     "name": "Name",
@@ -10,5 +10,17 @@
     "ip_address": "IP Address",
     "created_at": "Created At",
     "message": "Message",
-    "back_to_list": "Back to List"
+    "back_to_list": "Back to List",
+    "Quick Links": "Quick Links",
+    "Home": "Home",
+    "About Us": "About Us",
+    "Blog": "Blog",
+    "Resources": "Resources",
+    "Help Center": "Help Center",
+    "Privacy Policy": "Privacy Policy",
+    "Terms & Conditions": "Terms & Conditions",
+    "FAQ": "FAQ",
+    "Contact": "Contact",
+    "All rights reserved.": "All rights reserved.",
+    "Discover insightful articles, cutting-edge tutorials, and inspiring stories. Built with modern technology and optimized for the best reading experience.": "Discover insightful articles, cutting-edge tutorials, and inspiring stories. Built with modern technology and optimized for the best reading experience."
 }

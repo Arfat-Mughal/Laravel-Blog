@@ -22,6 +22,10 @@ Route::group([
     Route::get('/contact', [AppController::class, 'contact'])->name('contact');
     Route::post('/contact', [AppController::class, 'store'])->name('contact.store');
 
+    Route::get('/faq', [AppController::class, 'faq'])->name('faq');
+    Route::get('/terms', [AppController::class, 'terms'])->name('terms');
+    Route::get('/help', [AppController::class, 'help'])->name('help');
+
     // Invokable controller
     Route::get('/authors/{author}', AuthorsController::class)->name('author');
 
