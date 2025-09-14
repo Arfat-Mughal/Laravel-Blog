@@ -41,4 +41,5 @@ return [
             'answer' => 'Tak, mamy różne opcje reklamowe. Skontaktuj się z nami, aby uzyskać nasz kit medialny i cennik.',
         ],
     ],
+    'contact_success' => 'Twoja wiadomość została wysłana pomyślnie.',
 ];

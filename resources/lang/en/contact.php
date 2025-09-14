@@ -41,4 +41,5 @@ return [
             'answer' => 'Yes, we have various advertising options available. Please contact us for our media kit and pricing information.',
         ],
     ],
+    'contact_success' => 'Your message has been sent successfully.',
 ];

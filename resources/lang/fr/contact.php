@@ -41,4 +41,5 @@ return [
             'answer' => 'Oui, nous avons diverses options publicitaires disponibles. Veuillez nous contacter pour notre kit média et nos tarifs.',
         ],
     ],
+    'contact_success' => 'Votre message a été envoyé avec succès.',
 ];
