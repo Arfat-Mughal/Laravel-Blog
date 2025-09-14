@@ -19,6 +19,8 @@ Route::group([
     Route::get('/', [AppController::class, 'index'])->name('index');
     Route::get('/about', [AppController::class, 'about'])->name('about');
     Route::get('/privacy-policy', [AppController::class, 'privacyPolicy'])->name('privacy-policy');
+    Route::get('/contact', [AppController::class, 'contact'])->name('contact');
+    Route::post('/contact', [AppController::class, 'store'])->name('contact.store');
 
     // Invokable controller
     Route::get('/authors/{author}', AuthorsController::class)->name('author');

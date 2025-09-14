@@ -17,10 +17,16 @@ class PostsController extends Controller
      */
     public function index(Request $request, string $lang): View
     {
-        $posts = Post::with(['author', 'content'])->has('content')->visible()->search($request->q)->orderBy('id', 'desc')->paginate(config('blog.pagination'))->withQueryString();
+        $q = $request->input('q');
+        if (is_array($q)) {
+            $q = implode(' ', $q);
+        }
+        $q = (string) ($q ?? '');
+
+        $posts = Post::with(['author', 'content'])->has('content')->visible()->search($q)->orderBy('id', 'desc')->paginate(config('blog.pagination'))->withQueryString();
         return view('app.'.config('blog.theme').'.posts.index')->with([
             'posts' => $posts,
-            'q' => $request->q
+            'q' => $q
         ]);
     }
 

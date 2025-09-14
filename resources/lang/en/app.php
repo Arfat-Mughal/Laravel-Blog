@@ -20,5 +20,15 @@ return [
     'home' => 'Home',
     'about' => 'About Us',
     "app_name" => "Laravel Blog",
-    "welcome_to" => "Welcome to"
+    "welcome_to" => "Welcome to",
+    'get_in_touch' => 'Get in Touch',
+    'send_message' => 'Send Message',
+    'your_name' => 'Your Name',
+    'your_email' => 'Your Email',
+    'message_subject' => 'Message Subject',
+    'message' => 'Message',
+    'your_message' => 'Your Message',
+    'contact_submission_rate_limit' => 'You can only submit the form once every 5 minutes.',
+    'contact_success' => 'Your message has been sent successfully! We will get back to you soon.',
+    'contact_information' => 'Contact Information',
 ];

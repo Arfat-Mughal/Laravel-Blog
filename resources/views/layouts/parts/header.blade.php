@@ -53,6 +53,11 @@
                     <a itemprop="url" class="nav-item-hover text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200" 
                        href="{{ route('posts.index', app()->getLocale()) }}">{{ __('Posts') }}</a>
                 </li>
+
+                 <li class="nav-item" itemprop="hasPart">
+                    <a class="nav-item-hover text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200"
+                       href="{{ route('contact', app()->getLocale()) }}">{{ __('contact_us') }}</a>
+                </li>
             </ul>
         </div>
 

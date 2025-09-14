@@ -1,5 +1,5 @@
 {
     "app_name" : "Laravel Blog",
-    "welcome_to" : "Welcome to"
+    "welcome_to" : "Welcome to",
+    "contact_us": "Contact Us"
 }
-   
