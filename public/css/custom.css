@@ -612,3 +612,194 @@ body {
   content-visibility: auto;
   contain-intrinsic-size: 300px;
 }
+
+/* Mobile Menu CSS Fixes - Add this to your custom.css or at the end of your existing CSS */
+
+/* Mobile Menu Base Styles */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 256px; /* 64 * 4 = 256px (w-64) */
+    height: 100vh;
+    background-color: rgba(243, 244, 246, 0.95); /* bg-gray-100 with transparency */
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: all 0.3s ease-in-out;
+    visibility: hidden;
+    opacity: 0;
+    overflow-y: auto;
+}
+
+/* Active state for mobile menu */
+.mobile-menu.active {
+    transform: translateX(0);
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Mobile menu overlay */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Prevent body scroll when menu is open */
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+/* Mobile menu content styling */
+.mobile-menu .p-6 {
+    padding: 1.5rem;
+}
+
+.mobile-menu h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 2rem;
+}
+
+.mobile-menu nav a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #374151;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.mobile-menu nav a:hover {
+    background-color: rgba(209, 213, 219, 0.5);
+    color: #1f2937;
+    transform: translateX(4px);
+}
+
+/* Close button styling */
+#close-menu-btn {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#close-menu-btn:hover {
+    background-color: rgba(209, 213, 219, 0.5);
+    color: #374151;
+}
+
+/* Hamburger button hover effect */
+#hamburger-btn {
+    position: relative;
+    z-index: 51;
+}
+
+#hamburger-btn:hover {
+    background-color: rgba(243, 244, 246, 0.8);
+}
+
+/* Animation for hamburger icon */
+#menu-icon {
+    transition: all 0.2s ease;
+}
+
+/* Ensure mobile menu is only shown on mobile */
+@media (min-width: 768px) {
+    .mobile-menu {
+        display: none !important;
+    }
+    
+    .mobile-menu-overlay {
+        display: none !important;
+    }
+}
+
+/* Mobile-specific styles */
+@media (max-width: 767px) {
+    /* Make sure the menu takes full height */
+    .mobile-menu {
+        height: 100vh;
+        height: 100dvh; /* Dynamic viewport height for mobile browsers */
+    }
+    
+    /* Adjust menu content for mobile */
+    .mobile-menu nav {
+        margin-top: 1rem;
+    }
+    
+    .mobile-menu nav a {
+        font-size: 1.1rem;
+        padding: 1rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    /* Header adjustments for mobile */
+    header {
+        position: relative;
+        z-index: 30;
+    }
+}
+
+/* Dark mode support for mobile menu */
+@media (prefers-color-scheme: dark) {
+    .mobile-menu {
+        background-color: rgba(17, 24, 39, 0.95);
+    }
+    
+    .mobile-menu h2 {
+        color: #f9fafb;
+    }
+    
+    .mobile-menu nav a {
+        color: #d1d5db;
+    }
+    
+    .mobile-menu nav a:hover {
+        background-color: rgba(55, 65, 81, 0.5);
+        color: #f9fafb;
+    }
+    
+    #close-menu-btn {
+        color: #9ca3af;
+    }
+    
+    #close-menu-btn:hover {
+        background-color: rgba(55, 65, 81, 0.5);
+        color: #d1d5db;
+    }
+}
+
+/* Ensure proper stacking order */
+.z-50 {
+    z-index: 50;
+}
+
+.z-40 {
+    z-index: 40;
+}
+
+.z-30 {
+    z-index: 30;
+}

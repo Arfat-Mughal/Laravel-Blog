@@ -8,7 +8,7 @@
     <div class="absolute inset-0 gradient-bg opacity-5"></div>
     <div class="relative py-12 sm:py-20">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center animate-fadeInUp">
-           <h3 class="text-6xl md:text-7xl tracking-tight bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-8">
+           <h3 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-8">
             {{ __('welcome_to') }} {{ __('app_name') }}
 </h3>
             {{-- <p class="mt-8 max-w-4xl mx-auto text-xl md:text-2xl text-gray-600 leading-relaxed font-light">

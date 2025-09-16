@@ -12591,6 +12591,82 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
+// Mobile Menu Functionality
+window.toggleMobileMenu = function () {
+  var menu = document.getElementById('mobileMenu');
+  var icon = document.getElementById('menu-icon');
+  var body = document.body;
+  menu.classList.toggle('active');
+  body.classList.toggle('menu-open');
+  if (menu.classList.contains('active')) {
+    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+  } else {
+    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+  }
+};
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function (event) {
+  var menu = document.getElementById('mobileMenu');
+  var button = event.target.closest('[onclick="toggleMobileMenu()"]');
+  if (!menu.contains(event.target) && !button && menu.classList.contains('active')) {
+    toggleMobileMenu();
+  }
+});
+
+// DOMContentLoaded handlers
+document.addEventListener('DOMContentLoaded', function () {
+  // Add event listeners for mobile menu buttons
+  var hamburgerBtn = document.getElementById('hamburger-btn');
+  var closeBtn = document.getElementById('close-menu-btn');
+  if (hamburgerBtn) {
+    hamburgerBtn.addEventListener('click', window.toggleMobileMenu);
+  }
+  if (closeBtn) {
+    closeBtn.addEventListener('click', window.toggleMobileMenu);
+  }
+
+  // Close mobile menu on link clicks
+  var mobileLinks = document.querySelectorAll('#mobileMenu a');
+  mobileLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      window.toggleMobileMenu();
+    });
+  });
+
+  // Add loading spinner to forms
+  var forms = document.querySelectorAll('form');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function () {
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.innerHTML = '<div class="loading-spinner w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>';
+      }
+    });
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+});
+
+// Fallback for event listeners if DOMContentLoaded is missed
+if (document.readyState !== 'loading') {
+  var hamburgerBtn = document.getElementById('hamburger-btn');
+  var closeBtn = document.getElementById('close-menu-btn');
+  if (hamburgerBtn) hamburgerBtn.addEventListener('click', window.toggleMobileMenu);
+  if (closeBtn) closeBtn.addEventListener('click', window.toggleMobileMenu);
+}
+
 /***/ })
 
 /******/ 	});

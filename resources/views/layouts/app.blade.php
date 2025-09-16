@@ -11,6 +11,7 @@
     <title>{{ config('app.name') }}</title>
 
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/blog-interactive.js') }}" defer></script>
     @stack('scripts')
 
     <link rel="icon shortcut" href="{{ asset('favicon.ico') }}">
@@ -38,56 +39,5 @@
         @include('layouts.parts.footer')
     </div>
 
-    <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const icon = document.getElementById('menu-icon');
-            
-            menu.classList.toggle('active');
-            
-            if (menu.classList.contains('active')) {
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
-            } else {
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
-            }
-        }
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById('mobileMenu');
-            const button = event.target.closest('[onclick="toggleMobileMenu()"]');
-            
-            if (!menu.contains(event.target) && !button && menu.classList.contains('active')) {
-                toggleMobileMenu();
-            }
-        });
-
-        // Add loading states and smooth transitions
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add loading spinner to forms
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => {
-                form.addEventListener('submit', function() {
-                    const submitBtn = form.querySelector('button[type="submit"]');
-                    if (submitBtn) {
-                        submitBtn.innerHTML = '<div class="loading-spinner w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>';
-                    }
-                });
-            });
-
-            // Smooth scroll for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
